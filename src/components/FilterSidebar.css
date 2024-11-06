@@ -1,0 +1,65 @@
+/* FilterSidebar.css */
+
+.filter-sidebar {
+  background-color: white;
+  margin: 10px;
+  height: 100%;
+  padding: 20px; 
+  width: 25%; 
+}
+
+.filter-sidebar img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.filter-sidebar p {
+  margin-bottom: 15px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; 
+}
+
+.filter-label {
+  flex: 1;
+  font-weight: bold; 
+}
+
+.filter-select {
+  flex: 2;
+  padding: 5px; 
+  margin-left: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 4px; 
+  width: auto;
+}
+
+.difficulty-buttons {
+  display: flex;
+  margin-top: 10px; 
+}
+
+.difficulty-buttons button {
+  padding: 8px 12px; 
+  margin-right: 5px; 
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.difficulty-buttons button:hover {
+  background-color: #007bff; 
+  color: white; 
+}
+
+.difficulty-buttons button:disabled {
+  cursor: not-allowed; 
+  opacity: 0.5; 
+}

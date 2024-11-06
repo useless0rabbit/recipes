@@ -1,0 +1,33 @@
+.card {
+  width: 430px;
+  height: 330px; 
+  background-color: white;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  margin: 0;
+  padding: 10px;
+  text-align: left;
+}
+
+.card-content {
+  display: flex;
+  flex: 1;
+}
+
+.card-image {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-description {
+  padding: 10px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+}
