@@ -1,13 +1,11 @@
 import React from 'react';
-import './ModalHeader.css'; 
+import './ModalHeader.css';
 
-const ModalHeader = ({ onClose }) => {
+const ModalHeader = ({ title, onClose }) => {
   return (
     <div className="modal-header">
-      <button className="back-button" onClick={onClose}>
-        ←
-      </button>
-      <h2 className="modal-title">Информация о блюде</h2>
+      <button className="back-button" onClick={onClose}>&larr;</button>
+      <h2 className="modal-title">{title}</h2>
     </div>
   );
 };

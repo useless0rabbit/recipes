@@ -70,21 +70,45 @@
   margin-top: 10px;
 }
 
-.instructions-tile {
-  background-color: #ffffff;
-  padding: 10px;
+.instructions-section {
   margin-top: 10px;
+  background-color: #ffffff;
   height: 100%;
-  width: 400px;
-  overflow-y: auto;
+  padding: 10px;
 }
 
-.instructions-tile ul {
-  padding-left: 20px;
+.instructions-list {
+  position: relative;
+  padding: 0px;
 }
 
-.instructions-tile li {
-  margin-bottom: 5px;
+.instructions-list::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #d3d3d3;
+}
+
+.instruction-step {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.instruction-step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 4px solid rgb(62, 139, 255);
 }
 
 .image-section {
