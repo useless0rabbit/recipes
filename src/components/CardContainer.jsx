@@ -1,80 +1,49 @@
 import React, { useState } from 'react';
 import Card from './Card';
-import RecipeModal from './RecipeModal';
 import './CardContainer.css';
-import './pagination.css';
+import './Pagination.css';
 
-const CardContainer = ({ cards, currentPage, totalPages, onPageChange }) => {
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const CardContainer = ({ recipes, openModal }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 6;
 
-  const handleCardClick = (recipe) => {
-    setSelectedRecipe(recipe);
-    setIsModalOpen(true);
-  };
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = recipes.slice(indexOfFirstCard, indexOfLastCard);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedRecipe(null);
+  const totalPages = Math.ceil(recipes.length / cardsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const renderPagination = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
-        <button 
-          key={i} 
-          className={`pagination-button ${i === currentPage ? 'active' : ''}`} 
-          onClick={() => onPageChange(i)}
+        <button
+          key={i}
+          className={`pagination-button ${i === currentPage ? 'active' : ''}`}
+          onClick={() => handlePageChange(i)}
         >
           {i}
         </button>
       );
     }
-    return (
-      <div className="pagination">
-        <button 
-          className="pagination-arrow" 
-          onClick={() => onPageChange(currentPage - 1)} 
-          disabled={currentPage === 1}
-        >
-          {'<'}
-        </button>
-        {pages}
-        <button 
-          className="pagination-arrow" 
-          onClick={() => onPageChange(currentPage + 1)} 
-          disabled={currentPage === totalPages}
-        >
-          {'>'}
-        </button>
-      </div>
-    );
+    return <div className="pagination">{pages}</div>;
   };
 
   return (
     <div className="card-container">
-      <h2 className="card-title">Найденные рецепты</h2>
+      <div className="card-header">
+        <h2>Найденные рецепты: <span className="card-header-count">{recipes.length}</span></h2> 
+      </div>
       <div className="card-wrapper">
-        {cards.map(card => (
-          <div key={card.id} onClick={() => handleCardClick(card)}>
-            <Card 
-              title={card.title}
-              imgSrc="https://via.placeholder.com/150x100"
-              description={`Описание для ${card.title}`}
-              difficulty={card.difficulty}
-              cuisine={card.cuisine}
-              mealTypes={card.mealTypes}
-            />
-          </div>
+        {currentCards.map((recipe) => (
+          <Card key={recipe.id} recipe={recipe} openModal={openModal} />
         ))}
       </div>
       {renderPagination()}
-      <RecipeModal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        recipe={selectedRecipe} 
-      />
     </div>
   );
 };

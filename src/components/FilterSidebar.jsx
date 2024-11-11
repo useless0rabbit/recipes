@@ -1,46 +1,69 @@
 import React from 'react';
 import './FilterSidebar.css';
+import restaraunt from '../pictures/restaraunt.jpg';
 
-const FilterSidebar = ({ onCuisineChange, onMealTypeChange, onDifficultyChange, resetFilters }) => {
+const FilterSidebar = ({ filters, applyFilters, cuisines, mealTypes, onRandomRecipe }) => {
+  const handleCuisineChange = (e) => {
+    applyFilters({ ...filters, cuisine: e.target.value });
+  };
+
+  const handleMealTypeChange = (e) => {
+    applyFilters({ ...filters, mealType: e.target.value });
+  };
+
+  const handleDifficultyChange = (difficulty) => {
+    applyFilters({ ...filters, difficulty });
+  };
+
+  const resetFilters = () => {
+    applyFilters({ cuisine: '', mealType: '', difficulty: '' });
+  };
+
+  const hasActiveFilters = filters.cuisine || filters.mealType || filters.difficulty;
+
   return (
     <div className="filter-sidebar">
-      <img src="https://via.placeholder.com/150x100" alt="placeholder" /> 
-      <p>Описание фильтра или случайный текст о еде.</p>
-
+      <img src={restaraunt} alt="placeholder" className="sidebar-image" />
+      <p className="sidebar-fact">Знаете ли вы? Первое пицца-кафе открылось в Неаполе в 1830 году!</p>
+      
       <div className="filter-item">
-        <label htmlFor="cuisine" className="filter-label">Кухня:</label>
-        <select id="cuisine" className="filter-select" onChange={(e) => onCuisineChange(e.target.value)}>
+        <label className="filter-label">Кухня:</label>
+        <select value={filters.cuisine} onChange={handleCuisineChange}>
           <option value="">Все страны и регионы</option>
-          <option value="Европейская кухня">Европейская кухня</option>
-          <option value="Итальянская кухня">Итальянская кухня</option>
-          <option value="Мексиканская кухня">Мексиканская кухня</option>
-          <option value="Французская кухня">Французская кухня</option>
-          <option value="Японская кухня">Японская кухня</option>
-          <option value="Индийская кухня">Индийская кухня</option>
+          {cuisines.map((cuisine) => (
+            <option key={cuisine} value={cuisine}>{cuisine}</option>
+          ))}
         </select>
       </div>
-
+      
       <div className="filter-item">
-        <label htmlFor="mealType" className="filter-label">Тип блюда:</label>
-        <select id="mealType" className="filter-select" onChange={(e) => onMealTypeChange(e.target.value)}>
+        <label className="filter-label">Тип блюда:</label>
+        <select value={filters.mealType} onChange={handleMealTypeChange}>
           <option value="">Все типы</option>
-          <option value="Завтрак">Завтрак</option>
-          <option value="Обед">Обед</option>
-          <option value="Ужин">Ужин</option>
+          {mealTypes.map((mealType) => (
+            <option key={mealType} value={mealType}>{mealType}</option>
+          ))}
         </select>
       </div>
-
+      
       <div className="filter-item">
-        <label className="filter-label">Сложность приготовления:</label>
+        <label className="filter-label">Сложность:</label>
         <div className="difficulty-buttons">
-          <button onClick={() => onDifficultyChange('Любая')}>Любая</button>
-          <button onClick={() => onDifficultyChange('Низкая')}>Низкая</button>
-          <button onClick={() => onDifficultyChange('Средняя')}>Средняя</button>
-          <button onClick={() => onDifficultyChange('Высокая')}>Высокая</button>
+          <button onClick={() => handleDifficultyChange('')} className={filters.difficulty === '' ? 'active' : ''}>Любая</button>
+          <button onClick={() => handleDifficultyChange('Easy')} className={filters.difficulty === 'Easy' ? 'active' : ''}>Низкая</button>
+          <button onClick={() => handleDifficultyChange('Medium')} className={filters.difficulty === 'Medium' ? 'active' : ''}>Средняя</button>
+          <button onClick={() => handleDifficultyChange('Hard')} className={filters.difficulty === 'Hard' ? 'active' : ''}>Высокая</button>
         </div>
       </div>
 
-      <button onClick={resetFilters} className="reset-button">Сбросить все фильтры</button>
+      <button className="reset-button" onClick={resetFilters}>
+        Сбросить все фильтры
+      </button>
+
+      <p className="try-luck-text">А еще можно попробовать на вкус удачу</p>
+      <button className="luck-button" onClick={onRandomRecipe}>
+        Мне повезет!
+      </button>
     </div>
   );
 };
