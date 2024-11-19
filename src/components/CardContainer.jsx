@@ -1,37 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPage } from '../redux/slices/recipesSlice';
 import Card from './Card';
 import './CardContainer.css';
-import './Pagination.css';
+import Pagination from './Pagination';
 
-const CardContainer = ({ recipes, openModal }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6;
+const CardContainer = ({ recipes }) => {
+  const dispatch = useDispatch();
+  const { currentPage, recipesPerPage } = useSelector((state) => state.recipes);
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const indexOfLastCard = currentPage * recipesPerPage;
+  const indexOfFirstCard = indexOfLastCard - recipesPerPage;
+
   const currentCards = recipes.slice(indexOfFirstCard, indexOfLastCard);
 
-  const totalPages = Math.ceil(recipes.length / cardsPerPage);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const renderPagination = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(
-        <button
-          key={i}
-          className={`pagination-button ${i === currentPage ? 'active' : ''}`}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </button>
-      );
-    }
-    return <div className="pagination">{pages}</div>;
-  };
+  const totalPages = Math.ceil(recipes.length / recipesPerPage);
 
   return (
     <div className="card-container">
@@ -40,10 +23,14 @@ const CardContainer = ({ recipes, openModal }) => {
       </div>
       <div className="card-wrapper">
         {currentCards.map((recipe) => (
-          <Card key={recipe.id} recipe={recipe} openModal={openModal} />
+          <Card key={recipe.id} recipe={recipe}/>
         ))}
       </div>
-      {renderPagination()}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => dispatch(setPage(page))}
+      />
     </div>
   );
 };
