@@ -1,0 +1,17 @@
+.difficulty-button {
+  padding: 8px;
+  border: 1px solid #007bff;
+  background-color: #fff;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+  
+  .difficulty-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .difficulty-button.active {
+    background-color: #007bff;
+    color: #fff;
+  }

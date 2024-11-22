@@ -10,8 +10,7 @@ import { useFetchRecipesQuery } from './redux/api/apiSlice';
 const App = () => {
   const filters = useSelector((state) => state.filters);
 
-  const { data: recipesData, isLoading, isError } = useFetchRecipesQuery();
-  const recipes = Array.isArray(recipesData) ? recipesData : recipesData?.recipes || [];
+  const { data: recipes = [], isLoading, isError } = useFetchRecipesQuery();
 
   const filteredRecipes = recipes.filter((recipe) => {
     return (
