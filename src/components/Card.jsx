@@ -1,7 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../redux/slices/modalSlice';
 import './Card.css';
 
-const Card = ({ recipe, openModal }) => {
+const Card = ({ recipe }) => {
+  const dispatch = useDispatch();
   const totalCookTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
 
   const getStars = (difficulty) => {
@@ -18,16 +21,16 @@ const Card = ({ recipe, openModal }) => {
   };
 
   return (
-    <div className="card" onClick={() => openModal(recipe)}>
+    <div className="card" onClick={() => dispatch(openModal(recipe))}>
       <h3 className="card-title">{recipe.name}</h3>
       <div className="card-content">
         <img src={recipe.image || "https://via.placeholder.com/150"} alt={recipe.name} className="card-image" />
         <div className="card-info">
-          <p className="description"> {recipe.description || "Нет описания"}</p>
+          <p className="description">{recipe.description || "Описания нет в api"}</p>
           <p className="time">⏰ {totalCookTime} минут</p>
-          <p>Сложность {getStars(recipe.difficulty)}</p>
-          <p>{recipe.cuisine} cuisine </p>
-          <p>{recipe.mealType?.join(', ')}</p>
+          <p>Сложность: {getStars(recipe.difficulty)}</p>
+          <p>{recipe.cuisine || "Не указана"} cuisine</p>
+          <p>{recipe.mealType?.join(', ') || "Нет типа блюда"}</p>
         </div>
       </div>
     </div>
