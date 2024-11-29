@@ -3,7 +3,7 @@ import Header from './components/Header';
 import CardContainer from './components/CardContainer';
 import FilterSidebar from './components/FilterSidebar';
 import RecipeModal from './components/RecipeModal';
-import './App.css';
+import './App.scss';
 import { useSelector } from 'react-redux';
 import { useFetchRecipesQuery } from './redux/api/apiSlice';
 
