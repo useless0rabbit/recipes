@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import './DifficultyButton.css';
+import './DifficultyButton.scss';
 
 const DifficultyButton = ({ label, isActive, onClick }) => {
   return (
